@@ -23,10 +23,9 @@ Archive = FILTER Archive BY m#'errorMessage' is null;
 ExtractedCounts = FOREACH Archive GENERATE myfuncs.pickURLs(m#'url'),
 			     m#'url' AS src:chararray,
 			     SURTURL(m#'url') as surt:chararray,
-                             REPLACE(m#'digest','sha1:','') AS checksum:chararra
-y,
-                             m#'date' as date:chararray,
-                             myfuncs.Threat_countWords(m#'boiled');
+           REPLACE(m#'digest','sha1:','') AS checksum:chararray,
+           m#'date' as date:chararray,
+          myfuncs.Threat_countWords(m#'boiled');
 
 Checksum = LOAD '$I_CHECKSUM_DATA' USING PigStorage() AS (surt:chararray, date:c
 hararray, checksum:chararray);
