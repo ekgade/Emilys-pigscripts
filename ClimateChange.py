@@ -27,22 +27,12 @@ def Threat_countWords(content):
         '(climate\schange)'
         ]
 
-      threat_counts  = defaultdict(int)
-      threat_counts['total'] = 0
-
-      if not content or not isinstance(content, unicode):
-         return [(('total'), 0)]
-      threat_counts['total'] = len(content.split())
-
       for i in range(len(Threat_Words)):
          tmp = len(re.findall(Threat_Words[i], content, re.IGNORECASE))
          if tmp > 0:
-            threat_counts[Threat_Words[i]] = tmp
-      # Convert counts to bag
-      countBag = []
-      for word in threat_counts.keys():
-         countBag.append( (word, threat_counts[word] ) )
-      return countBag
+            return Threat_Words[i]
+
+      return 'other'
    except IOError:
       print('An error occured trying to read the file.')
    except ValueError:
