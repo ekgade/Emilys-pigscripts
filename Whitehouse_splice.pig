@@ -26,8 +26,9 @@ Archive = FOREACH Archive GENERATE FROMJSON(value) AS m:[];
 -- errorMessage property, so if it exists, skip the record.
 Meta = FILTER Archive BY m#'errorMessage' is null;
 
--- Only retain the fields of interest.
-Meta = FOREACH Meta GENERATE m#'url' AS src:chararray,
+-- Only retain the fields of interest
+Meta = FOREACH Meta GENERATE myfuncs.pickURLs(m#'url'),
+			     m#'url' 	       AS src:chararray,
 			     REPLACE(m#'digest','sha1:','') AS checksum:chararray,
 		 	     m#'date' 	       AS date:chararray,
 			     SURTURL(m#'url')  AS surt:chararray,
@@ -48,10 +49,10 @@ FullCounts = FOREACH CountsJoinChecksum GENERATE
                         Checksum::date as date,
                         Meta::content as content;
 
-GroupedCounts = GROUP FullCounts BY src;
+-- GroupedCounts = GROUP FullCounts BY src;
 
 -- GroupedCounts = FOREACH GroupedCounts GENERATE
 --			group AS src,
 --			FLATTEN(FullCounts) AS (surt:chararray, date:int, title:chararray, content:chararray);
 
-STORE GroupedCounts INTO '$O_DATA_DIR';
+STORE FullCounts INTO '$O_DATA_DIR';
