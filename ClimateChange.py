@@ -1,7 +1,7 @@
 #Climate Change Script - python
 
 
-@outputSchema("counts:bag{tuple(word:chararray,count:int)}")
+@outputSchema("match:chararray)")
 def ClimateChangeWords(content):
    try:
       # these can be arbitrary regular expressions
