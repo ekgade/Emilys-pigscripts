@@ -45,7 +45,7 @@ CountsJoinChecksum = JOIN Meta BY (surt, checksum), Checksum BY (surt, checksum)
 FullCounts = FOREACH CountsJoinChecksum GENERATE
 			Checksum::surt as surt,
                         Meta::src as src,
-			Meta::title as title,
+												Meta::title as title,
                         Checksum::date as date,
                         Meta::content as content;
 

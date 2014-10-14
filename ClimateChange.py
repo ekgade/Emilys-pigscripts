@@ -2,10 +2,10 @@
 
 
 @outputSchema("counts:bag{tuple(word:chararray,count:int)}")
-def Threat_countWords(content):
+def ClimateChangeWords(content):
    try:
       # these can be arbitrary regular expressions
-      Threat_Words = [
+      ClimateChange_Words = [
         '(natural\sdisaster)',
         '(global\swarming)',
         '(fresh\swater)',
@@ -27,10 +27,10 @@ def Threat_countWords(content):
         '(climate\schange)'
         ]
 
-      for i in range(len(Threat_Words)):
-         tmp = len(re.findall(Threat_Words[i], content, re.IGNORECASE))
+      for i in range(len(ClimateChange_Words)):
+         tmp = len(re.findall(ClimateChange_Words[i], content, re.IGNORECASE))
          if tmp > 0:
-            return Threat_Words[i]
+            return ClimateChange_Words[i]
 
       return 'other'
    except IOError:
