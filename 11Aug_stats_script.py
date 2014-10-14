@@ -144,8 +144,7 @@ def Threat_countWords(content):
 
 #@outputSchema("counts:bag{tuple(urlname:chararray, urlcount:int, year:int, month:int, word:chararray, count:int, filled:int,
  #afterLast:int)}")
-#@outputSchema("counts:bag{tuple(year:int, month:int, maxSeenDate:int, word:chararray, count:int, filled:int, afterLast:int,
-URLs:chararray)}")
+#@outputSchema("counts:bag{tuple(year:int, month:int, maxSeenDate:int, word:chararray, count:int, filled:int, afterLast:int, URLs:chararray)}")
 @outputSchema("counts:bag{tuple(year:int, month:int, word:chararray, count:int, filled:int, afterLast:int, URLs:chararray)}")
 #@outputSchema("counts:bag{tuple(year:int, month:int, word:chararray, count:int, seendates:int, date:int, URLs:chararray)}")
 

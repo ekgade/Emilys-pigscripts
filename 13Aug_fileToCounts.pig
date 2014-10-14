@@ -25,7 +25,7 @@ ExtractedCounts = FOREACH Archive GENERATE myfuncs.pickURLs(m#'url'),
 			     SURTURL(m#'url') as surt:chararray,
            REPLACE(m#'digest','sha1:','') AS checksum:chararray,
            m#'date' as date:chararray,
-          myfuncs.Threat_countWords(m#'boiled');
+           myfuncs.Threat_countWords(m#'boiled');
 
 Checksum = LOAD '$I_CHECKSUM_DATA' USING PigStorage() AS (surt:chararray, date:c
 hararray, checksum:chararray);
@@ -37,7 +37,7 @@ FullCounts = FOREACH CountsJoinChecksum GENERATE
                         ExtractedCounts::src as src,
                         Checksum::date as date,
                         ExtractedCounts::counts as counts,
-			ExtractedCounts::URLs as URLs;
+			                  ExtractedCounts::URLs as URLs;
 
 GroupedCounts = GROUP FullCounts BY src;
 

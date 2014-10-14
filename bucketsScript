@@ -1,6 +1,10 @@
 pig -p I_PARSED_DATA_DIR=/dataset-derived/gov/parsed/arcs/bucket-1/DOTGOV-EXTRACTION-1995-FY2013-MIME-TEXT-ARCS-PART-00299-000003.arc.gz -p O_METATEXT_DATA_DIR=2OctTest_parsedText pig/parsed-captures/extract-surt-canon-urls-with-metatext-from-parsed-captures.pig
 
 
+pig -p I_PARSED_DATA_DIR=/dataset-derived/gov/parsed/arcs/bucket-1/DOTGOV-EXTRACTION-1995-FY2013-MIME-TEXT-ARCS-PART-00299-000003.arc.gz -p O_METATEXT_DATA_DIR=2OctTest_parsedText pig/parsed-captures/extract-surt-canon-urls-with-metatext-from-parsed-captures.pig
+
+
+
 pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-0/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=output0_13Aug file_to_counts_plus_URLs.pig
 pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-1/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=output1_13Aug file_to_counts_plus_URLs.pig
 pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-2/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=output2_13Aug file_to_counts_plus_URLs.pig
@@ -16,6 +20,9 @@ pig -p I_WORD_COUNTS=/user/emilyg/output2_13Aug/part-r* -p O_DATA_DIR=17SeptResu
 
 
 pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-2/DOTGOV-EXTRACTION-1995-FY2013-MIME-TEXT-ARCS-PART-00999-000003.arc.gz -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=test_13Aug file_to_counts_plus_URLs.pig
+
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-2/DOTGOV-EXTRACTION-1995-FY2013-MIME-TEXT-ARCS-PART-00999-000003.arc.gz -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=7OctTest4 Whitehouse_splice.pig
+
 
 concatinate results
 hadoop fs -getmerge 29JulyResults_v2/part-r* 31JulyCatResults_1
