@@ -65,6 +65,6 @@ Meta = FILTER Meta BY metatext != '' AND metatext != ' ';
 
 Docs = FOREACH Meta GENERATE src as src, timestamp as timestamp, FLATTEN(TOKENIZE(metatext)) as term;
 
-DocWordTotals = FOREACH (GROUP Docs by (src)) GENERATE group as src, COUNT(term) as docTotal;
+DocWordTotals = FOREACH (GROUP Docs by (src)) GENERATE group as src, date as date, COUNT(term) as docTotal;
 
 Store DocWordTotals into '$O_METATEXT_DATA_DIR';

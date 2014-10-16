@@ -1,0 +1,55 @@
+-- postgress commands!
+
+## to remotely log in to postgres table:
+psql -h climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com -U capppuser -d CAPPPDotGovClimateChange
+
+# to create a new table
+CREATE TABLE unique_captures (
+date       date,
+src        text,
+title      text,
+content    text,
+checksum   text);
+
+CREATE TABLE total_captures (
+date       date,
+src        text,
+checksum   text);
+
+CREATE TABLE total_counts (
+date           date,
+src            text,
+wordsperpage   int);
+
+## sample
+CREATE [ [ GLOBAL | LOCAL ] { TEMPORARY | TEMP } | UNLOGGED ] TABLE [ IF NOT EXISTS ] table_name ( [
+  { column_name data_type [ COLLATE collation ] [ column_constraint [ ... ] ]
+    | table_constraint
+    | LIKE parent_table [ like_option ... ] }
+    [, ... ]
+] )
+[ INHERITS ( parent_table [, ... ] ) ]
+[ WITH ( storage_parameter [= value] [, ... ] ) | WITH OIDS | WITHOUT OIDS ]
+[ ON COMMIT { PRESERVE ROWS | DELETE ROWS | DROP } ]
+[ TABLESPACE tablespace ]
+
+CREATE TABLE films (
+    code        char(5) CONSTRAINT firstkey PRIMARY KEY,
+    title       varchar(40) NOT NULL,
+    did         integer NOT NULL,
+    date_prod   date,
+    kind        varchar(10),
+    len         interval hour to minute
+);
+
+CREATE TABLE distributors (
+     did    integer PRIMARY KEY DEFAULT nextval('serial'),
+     name   varchar(40) NOT NULL CHECK (name <> '')
+);
+
+
+## display possible tables:
+/dt
+
+### show a specific table:
+SELECT tablename

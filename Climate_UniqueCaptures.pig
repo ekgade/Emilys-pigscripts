@@ -45,9 +45,9 @@ ExtractedCounts = FOREACH Archive GENERATE m#'url' AS src:chararray,
 -- This takes each of the previous tuples (the url, date, content, etc.) and searches
 -- through the content field looking for any RegEx matches to these terms
 -- If it finds one, it keeps it; otherwise "filter" drops the file
-Meta = FILTER ExtractedCounts BY content MATCHES '.*natural\\sdisaster.*' OR content MATCHES '.*desertification.*' OR content MATCHES '.*climate\\schange.*' OR content MATCHES '.*pollution.*' OR content MATCHES '.*ocean\\sacidification.*' OR content MATCHES '.*anthropocene.*' OR content MATCHES '.*anthropogenic.*' OR content MATCHES '.*greenhouse\\sgas.*' OR content MATCHES '.*climategate.*' OR content MATCHES '.*climatic\\sresearch\\sunit.*' OR content MATCHES '.*CRU.*' OR content MATCHES '.*IPCC.*' OR content MATCHES '.*security\\sof\\sfood.*' OR content MATCHES '.*global\\swarming.*' OR content MATCHES '.*fresh\\swater.*' OR content MATCHES '.*forest\\sconservation.*' OR content MATCHES '.*food\\ssecurity.*';
+UniqueCaptures = FILTER ExtractedCounts BY content MATCHES '.*natural\\sdisaster.*' OR content MATCHES '.*desertification.*' OR content MATCHES '.*climate\\schange.*' OR content MATCHES '.*pollution.*' OR content MATCHES '.*ocean\\sacidification.*' OR content MATCHES '.*anthropocene.*' OR content MATCHES '.*anthropogenic.*' OR content MATCHES '.*greenhouse\\sgas.*' OR content MATCHES '.*climategate.*' OR content MATCHES '.*climatic\\sresearch\\sunit.*' OR content MATCHES '.*CRU.*' OR content MATCHES '.*IPCC.*' OR content MATCHES '.*security\\sof\\sfood.*' OR content MATCHES '.*global\\swarming.*' OR content MATCHES '.*fresh\\swater.*' OR content MATCHES '.*forest\\sconservation.*' OR content MATCHES '.*food\\ssecurity.*';
 
 -- This stores the counts the file name you gave it
 -- The "using pigstorage" function allows you to set your own delimiters.
 -- I chose one with Unicode because I was worried commas/tabs would show up in the ext
-STORE Meta INTO '$O_DATA_DIR' USING PigStorage('\u0001');
+STORE UniqueCaptures INTO '$O_DATA_DIR' USING PigStorage('\u0001');

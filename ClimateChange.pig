@@ -51,6 +51,8 @@ Meta = FILTER ExtractedCounts BY content MATCHES '.*natural\\sdisaster.*' OR con
 -- (it can be any name so long as they match)
 Checksum = LOAD '$I_CHECKSUM_DATA' USING PigStorage() AS (surt:chararray, date:chararray, checksum:chararray);
 
+--Duplicate = FOREACH Checksum GENERATE duplicate AS duplicate:boolean;
+
 -- This joins the CheckedSum cites with the other cites
 CountsJoinChecksum = JOIN Meta BY (surt, checksum), Checksum BY (surt, checksum);
 
