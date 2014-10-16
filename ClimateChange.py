@@ -27,6 +27,8 @@ def ClimateChangeWords(content):
         '(climate\schange)'
         ]
 
+#can also use r and then string rather than escape //
+
       for i in range(len(ClimateChange_Words)):
          tmp = len(re.findall(ClimateChange_Words[i], content, re.IGNORECASE))
          if tmp > 0:

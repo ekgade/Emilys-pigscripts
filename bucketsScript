@@ -5,7 +5,7 @@ pig -p I_PARSED_DATA_DIR=/dataset-derived/gov/parsed/arcs/bucket-1/DOTGOV-EXTRAC
 
 
 
-pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-0/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=output0_13Aug file_to_counts_plus_URLs.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-0/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=output0_13Aug climate3.pig
 pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-1/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=output1_13Aug file_to_counts_plus_URLs.pig
 pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-2/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=output2_13Aug file_to_counts_plus_URLs.pig
 pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-3/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=output3_13Aug file_to_counts_plus_URLs.pig
@@ -38,3 +38,17 @@ to run other pig script
 to copy file to local
 scp -r altiscale:~/archive-analysis/DOTGOV-EXTRACTION-1995-FY2013-MIME-TEXT-WARCS-PART-00677-000000.warc.gz /Users/emilykalahgade/Desktop/CAPP_RAship
 scp -r altiscale:~/archive-analysis/Oct14ClimateTestResultsCAT /Users/emilykalahgade/Desktop/CAPP_RAship
+
+
+Running climate change scripts
+
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-0/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimateArc0 climate3.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-1/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimateArc1 climate3.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-2/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimateArc2 climate3.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-3/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimateArc3 climate3.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-4/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimateArc4 climate3.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-5/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimateArc5 climate3.pig
+
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/warcs/bucket-0 -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimateWarc0  climate3.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/warcs/bucket-1 -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimateWarc1  climate3.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/warcs/bucket-2 -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimateWarc2  climate3.pig
