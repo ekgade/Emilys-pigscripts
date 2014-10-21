@@ -39,10 +39,21 @@ print files
 for phile in files:
     print 'Fetching file: ' + phile
 
-    # Stream file contents
-    hadoop_proc = subprocess.Popen(
-        ['ssh', HOST, 'hadoop fs -cat ' + HDFS_ROOT + phile],
-        stdout=subprocess.PIPE)
+    try:
+        # load file contents en masse
+        contents = subprocess.check_output(
+            ['ssh', HOST, 'hadoop fs -cat ' + HDFS_ROOT + phile])
+
+        # Ingest into postgres
+        postgres_proc = subprocess.Popen(
+            ['psql', '-h',  'climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com', '-U', 'capppuser', '-d', 'CAPPPDotGovClimateChange','-c', "COPY unique_captures21oct (src, surt, checksum, date, code, title, description, content) FROM stdin WITH DELIMITER E'\1' NULL '';"],
+            stdin=subprocess.PIPE)
+
+        postgres_proc.communicate(input=contents)
+        result = postgres_proc.wait()
+        if result:
+            raise Exception("Ingest failure")
+
 # stream results to the consule when you run it -  be able to see the output you've run
   #  cat_proc = subprocess.Popen(
   #      ['cat', '-v'], stdin=hadoop_proc.stdout
@@ -50,10 +61,7 @@ for phile in files:
 
 #    system.exit(0)
 
-    # Ingest into postgres
-    postgres_proc = subprocess.Popen(
-        ['psql', '-h',  'climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com', '-U', 'capppuser', '-d', 'CAPPPDotGovClimateChange','-c', "COPY unique_captures21oct (src, surt, checksum, date, code, title, description, content) FROM stdin WITH DELIMITER E'\1' NULL '';"],
-        stdin=hadoop_proc.stdout)
+    except Exception as e:
+        print '### Exception on file %s : %s' % (phile, e)
 
-    postgres_proc.wait()
-    hadoop_proc.wait()
+
