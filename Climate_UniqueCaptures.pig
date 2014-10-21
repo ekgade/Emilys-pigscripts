@@ -1,7 +1,8 @@
 -- Climate Change Pig Script: Flags all captures whose content includes at least one mention of the term climate change and stores the output
 -- For questions contact ekgade@uw.edu
 
--- TO RUN = type this into the command line: pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-2/DOTGOV-EXTRACTION-1995-FY2013-MIME-TEXT-ARCS-PART-00999-000003.arc.gz -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=7OctTest4 climate3.pig
+-- TO RUN = type this into the command line: pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-2/DOTGOV-EXTRACTION-1995-FY2013-MIME-TEXT-ARC
+S-PART-00999-000003.arc.gz -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=7OctTest4 climate3.pig
 -- make sure that your file paths are in the right place and that you start in the right directory (it doesnt give you clear errors about this)
 
 -- These first four lines are defaults and also help with memory (if you dont have them, sometimes the cluster kicks you out)
@@ -36,19 +37,25 @@ Archive = FILTER Archive BY m#'errorMessage' is null;
 ExtractedCounts = FOREACH Archive GENERATE m#'url' AS src:chararray,
            SURTURL(m#'url') AS surt:chararray,
            REPLACE(m#'digest','sha1:','') AS checksum:chararray,
-           m#'date'          AS date:chararray,
-           m#'code'          AS code:chararray,
-           m#'title'         AS title:chararray,
-           m#'description'   AS description:chararray,
-           m#'content'       AS content:chararray;
+           SUBSTRING(m#'date', 0, 8) AS date:chararray,
+           REPLACE(m#'code', '\n', ' ')          AS code:chararray,
+           REPLACE(m#'title', '\n', ' ')         AS title:chararray,
+           REPLACE(m#'description', '\n', ' ')   AS description:chararray,
+           REPLACE(m#'content', '\n', ' ')       AS content:chararray;
 
 -- This takes each of the previous tuples (the url, date, content, etc.) and searches
 -- through the content field looking for any RegEx matches to these terms
 -- If it finds one, it keeps it; otherwise "filter" drops the file
-UniqueCaptures = FILTER ExtractedCounts BY content MATCHES '.*natural\\sdisaster.*' OR content MATCHES '.*desertification.*' OR content MATCHES '.*climate\\schange.*' OR content MATCHES '.*pollution.*' OR content MATCHES '.*ocean\\sacidification.*' OR content MATCHES '.*anthropocene.*' OR content MATCHES '.*anthropogenic.*' OR content MATCHES '.*greenhouse\\sgas.*' OR content MATCHES '.*climategate.*' OR content MATCHES '.*climatic\\sresearch\\sunit.*' OR content MATCHES '.*CRU.*' OR content MATCHES '.*IPCC.*' OR content MATCHES '.*security\\sof\\sfood.*' OR content MATCHES '.*global\\swarming.*' OR content MATCHES '.*fresh\\swater.*' OR content MATCHES '.*forest\\sconservation.*' OR content MATCHES '.*food\\ssecurity.*';
+UniqueCaptures = FILTER ExtractedCounts BY content MATCHES '.*natural\\sdisaster.*' OR content MATCHES '.*desertification.*' OR content MATCHES '.*clim
+ate\\schange.*' OR content MATCHES '.*pollution.*' OR content MATCHES '.*ocean\\sacidification.*' OR content MATCHES '.*anthropocene.*' OR content MATC
+HES '.*anthropogenic.*' OR content MATCHES '.*greenhouse\\sgas.*' OR content MATCHES '.*climategate.*' OR content MATCHES '.*climatic\\sresearch\\sunit
+.*' OR content MATCHES '.*CRU.*' OR content MATCHES '.*IPCC.*' OR content MATCHES '.*security\\sof\\sfood.*' OR content MATCHES '.*global\\swarming.*'
+OR content MATCHES '.*fresh\\swater.*' OR content MATCHES '.*forest\\sconservation.*' OR content MATCHES '.*food\\ssecurity.*';
 
--- Get rid of the \n (new line deliminaters) which are causing problems with tables - you can't change the document delimiter in Pig, and the default is '\n' new line so we have to get rid of all the new lines in the text (tables and also some characture limits). this will affect our ablity to do text parsing by paragraph, but sentances will still be okay.
-UniqueCaptures = FOREACH UniqueCaptures GENERATE REPLACE(content, '\n', ' ');
+-- I ended up moving this to the front! Get rid of the \n (new line deliminaters) which are causing problems with tables - you can't change the documen
+t delimiter in Pig, and the default is '\n' new line so we have to get rid of all the new lines in the text (tables and also some characture limits). t
+his will affect our ablity to do text parsing by paragraph, but sentances will still be okay.
+-- UniqueCaptures = FOREACH UniqueCaptures GENERATE REPLACE(content, '\n', ' ');
 
 -- This stores the counts the file name you gave it
 -- The "using pigstorage" function allows you to set your own delimiters.

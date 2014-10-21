@@ -62,6 +62,8 @@ scp -r altiscale:~/archive-analysis/part-m-00000 /Users/emilykalahgade/Desktop/C
 
 Running climate change scripts
 
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-3//dataset-derived/gov/parsed/arcs/bucket-3/DOTGOV-EXTRACTION-1995-FY2013-MIME-TEXT-ARCS-PART-01999-000005.arc.gz  -p O_DATA_DIR=ClimateuniqueArc3 climate_unique.pig
+
 
 pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-0/  -p O_DATA_DIR=ClimateuniqueArc0 climate_unique.pig
 pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-1/  -p O_DATA_DIR=ClimateuniqueArc1 climate_unique.pig
