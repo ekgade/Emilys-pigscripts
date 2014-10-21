@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 
+import os
 import subprocess
 import sys
 
-HOST = 'dbserver01.cs.washington.edu'
-HDFS_ROOT = 'hdfs://vega.cs.washington.edu/'
+## machine you are SSH into
+HOST = 'altiscale'
+## this may not be necessary
+HDFS_ROOT = ''
 
 def execute_remote(cmd):
     return subprocess.check_output(['ssh', HOST, cmd])
@@ -19,7 +22,12 @@ def fetch_file_list(root):
             yield toks[7]
 
 # Step 1: Fetch list of files
-files = list(fetch_file_list(HDFS_ROOT + '/whitaker/outputF'))
+files = list(fetch_file_list(HDFS_ROOT + 'ClimateuniqueArc0'))
+#base name is the last part of the file name (not all the directories the file is stored in)
+files = [f for f in files if not os.path.basename(f).startswith('_')]
+print files
+
+#sys.exit(0)
 
 # Step 2: for each file, download its contents, and ingest into postgres.
 for phile in files:
@@ -30,6 +38,12 @@ for phile in files:
         ['ssh', HOST, 'hadoop fs -cat ' + HDFS_ROOT + phile],
         stdout=subprocess.PIPE)
 
+    cat_proc = subprocess.Popen(
+        ['cat', '-v'], stdin=hadoop_proc.stdout
+    )
+
+    system.exit(0)
+  
     # Ingest into postgres
     postgres_proc = subprocess.Popen(
         ['psql', '-c', 'COPY table_name from stdin'],
@@ -37,4 +51,3 @@ for phile in files:
 
     postgres_proc.wait()
     hadoop_proc.wait()
-
