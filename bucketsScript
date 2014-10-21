@@ -37,6 +37,17 @@ hadoop fs -getmerge Climate5Test14Oct/part-r* Oct14ClimateTestResultsCAT2
 hadoop fs -getmerge Climate* Oct16ClimateFull
 
 
+concat climate change unique results
+hadoop fs -getmerge ClimateuniqueArc0* /user/emilyg/Oct21UniqArc0
+hadoop fs -getmerge ClimateuniqueArc1/part-r* /user/emilyg/Oct21UniqArc1
+hadoop fs -getmerge ClimateuniqueArc2/part-r* /user/emilyg/Oct21UniqArc2
+hadoop fs -getmerge ClimateuniqueArc3/part-r* /user/emilyg/Oct21UniqArc3
+hadoop fs -getmerge ClimateuniqueArc4/part-r* /user/emilyg/Oct21UniqArc4
+hadoop fs -getmerge ClimateuniqueArc5/part-r* /user/emilyg/Oct21UniqArc5
+hadoop fs -getmerge ClimateuniqueWarc0/part-r* /user/emilyg/Oct21UniqWarc0
+hadoop fs -getmerge ClimateuniqueWarc1/part-r* /user/emilyg/Oct21UniqWarc1
+hadoop fs -getmerge ClimateuniqueWarc2/part-r* /user/emilyg/Oct21UniqWarc2
+
 
 to run other pig script
 
@@ -45,20 +56,37 @@ to copy file to local
 scp -r altiscale:~/archive-analysis/DOTGOV-EXTRACTION-1995-FY2013-MIME-TEXT-WARCS-PART-00677-000000.warc.gz /Users/emilykalahgade/Desktop/CAPP_RAship
 scp -r altiscale:~/archive-analysis/Oct14ClimateTestResultsCAT /Users/emilykalahgade/Desktop/CAPP_RAship
 
+scp -r altiscale:~/archive-analysis/part-m-00000 /Users/emilykalahgade/Desktop/CAPP_RAship
+
+
 
 Running climate change scripts
 
-pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-0/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimateuniqueArc0 climate_unique.pig
-pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-1/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimateuniqueArc1 climate_unique.pig
-pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-2/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimateuniqueArc2 climate_unique.pig
-pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-3/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimateuniqueArc3 climate_unique.pig
-pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-4/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimateuniqueArc4 climate_unique.pig
-pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-5/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimateuniqueArc5 climate_unique.pig
-pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/warcs/bucket-0 -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimateuniqueWarc0  climate_unique.pig
-pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/warcs/bucket-1 -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimateuniqueWarc1  climate_unique.pig
-pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/warcs/bucket-2 -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimateuniqueWarc2  climate_unique.pig
+
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-0/  -p O_DATA_DIR=ClimateuniqueArc0 climate_unique.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-1/  -p O_DATA_DIR=ClimateuniqueArc1 climate_unique.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-2/  -p O_DATA_DIR=ClimateuniqueArc2 climate_unique.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-3/  -p O_DATA_DIR=ClimateuniqueArc3 climate_unique.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-4/  -p O_DATA_DIR=ClimateuniqueArc4 climate_unique.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-5/  -p O_DATA_DIR=ClimateuniqueArc5 climate_unique.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/warcs/bucket-0  -p O_DATA_DIR=ClimateuniqueWarc0  climate_unique.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/warcs/bucket-1  -p O_DATA_DIR=ClimateuniqueWarc1  climate_unique.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/warcs/bucket-2  -p O_DATA_DIR=ClimateuniqueWarc2  climate_unique.pig
 
 
+
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-0/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimatetotalobsArc0  climate_totalobs.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-1/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimatetotalobsArc1  climate_totalobs.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-2/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimatetotalobsArc2  climate_totalobs.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-3/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimatetotalobsArc3  climate_totalobs.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-4/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimatetotalobsArc4  climate_totalobs.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-5/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimatetotalobsArc5  climate_totalobs.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/warcs/bucket-0 -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimatetotalobsWarc0  climate_totalobs.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/warcs/bucket-1 -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimatetotalobsWarc1  climate_totalobs.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/warcs/bucket-2 -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=ClimatetotalobsWarc2  climate_totalobs.pig
+
+
+climate_totalobs.pig
 
 to sign in to amazon instance using postgresql
 (have to downloand and install postgres first - download homebrew if on mac. then type in command line: "brew install postgres")

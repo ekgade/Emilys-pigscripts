@@ -47,6 +47,9 @@ ExtractedCounts = FOREACH Archive GENERATE m#'url' AS src:chararray,
 -- If it finds one, it keeps it; otherwise "filter" drops the file
 UniqueCaptures = FILTER ExtractedCounts BY content MATCHES '.*natural\\sdisaster.*' OR content MATCHES '.*desertification.*' OR content MATCHES '.*climate\\schange.*' OR content MATCHES '.*pollution.*' OR content MATCHES '.*ocean\\sacidification.*' OR content MATCHES '.*anthropocene.*' OR content MATCHES '.*anthropogenic.*' OR content MATCHES '.*greenhouse\\sgas.*' OR content MATCHES '.*climategate.*' OR content MATCHES '.*climatic\\sresearch\\sunit.*' OR content MATCHES '.*CRU.*' OR content MATCHES '.*IPCC.*' OR content MATCHES '.*security\\sof\\sfood.*' OR content MATCHES '.*global\\swarming.*' OR content MATCHES '.*fresh\\swater.*' OR content MATCHES '.*forest\\sconservation.*' OR content MATCHES '.*food\\ssecurity.*';
 
+-- Get rid of the \n (new line deliminaters) which are causing problems with tables - you can't change the document delimiter in Pig, and the default is '\n' new line so we have to get rid of all the new lines in the text (tables and also some characture limits). this will affect our ablity to do text parsing by paragraph, but sentances will still be okay.
+UniqueCaptures = FOREACH UniqueCaptures GENERATE REPLACE(content, '\n', ' ');
+
 -- This stores the counts the file name you gave it
 -- The "using pigstorage" function allows you to set your own delimiters.
 -- I chose one with Unicode because I was worried commas/tabs would show up in the ext

@@ -4,12 +4,15 @@
 psql -h climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com -U capppuser -d CAPPPDotGovClimateChange
 
 # to create a new table
-CREATE TABLE unique_captures (
-date       date,
-src        text,
-title      text,
-content    text,
-checksum   text);
+CREATE TABLE unique_captures21Oct (
+src         text,
+surt        text,
+checksum    text,
+date        date,
+code        text,
+title       text,
+description text,
+content     text);
 
 CREATE TABLE total_captures (
 date       date,
@@ -47,9 +50,46 @@ CREATE TABLE distributors (
      name   varchar(40) NOT NULL CHECK (name <> '')
 );
 
+CREATE TABLE unique_captures ( date       date,
+CAPPPDotGovClimateChange(> src        text,
+CAPPPDotGovClimateChange(> title      text,
+CAPPPDotGovClimateChange(> content    text,
+CAPPPDotGovClimateChange(> checksum   text);
+
+
 
 ## display possible tables:
 /dt
 
 ### show a specific table:
 SELECT tablename
+
+
+### create INdex
+
+
+##### import data into PostgreSQL via COPY command
+
+src         text,
+surt        text,
+checksum    text,
+date        date,
+code        text,
+title       text,
+description text,
+content
+
+\COPY unique_captures21oct (src, surt, checksum, date, code, title, description, content) FROM 'Desktop/CAPP_RAship/part-m-00000' (DELIMITER '\u0001');
+
+
+COPY tablename [ ( column [, ...] ) ]
+    FROM { 'filename' | STDIN }
+    [ [ WITH ]
+          [ BINARY ]
+          [ OIDS ]
+          [ DELIMITER [ AS ] 'delimiter' ]
+          [ NULL [ AS ] 'null string' ]
+          [ CSV [ HEADER ]
+                [ QUOTE [ AS ] 'quote' ]
+                [ ESCAPE [ AS ] 'escape' ]
+                [ FORCE NOT NULL column [, ...] ]
