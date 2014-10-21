@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+## to run, go to command line with the right directory where you stored the file, then type: ./fetch_and_ingest.py
+
 import os
 import subprocess
 import sys
@@ -8,6 +10,10 @@ import sys
 HOST = 'altiscale'
 ## this may not be necessary
 HDFS_ROOT = ''
+
+PSQL_HOST = 'psql -h climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com -U capppuser -d CAPPPDotGovClimateChange'
+
+pswd = 'cappuser'
 
 def execute_remote(cmd):
     return subprocess.check_output(['ssh', HOST, cmd])
@@ -37,16 +43,16 @@ for phile in files:
     hadoop_proc = subprocess.Popen(
         ['ssh', HOST, 'hadoop fs -cat ' + HDFS_ROOT + phile],
         stdout=subprocess.PIPE)
+# stream results to the consule when you run it -  be able to see the output you've run
+  #  cat_proc = subprocess.Popen(
+  #      ['cat', '-v'], stdin=hadoop_proc.stdout
+  #  )
 
-    cat_proc = subprocess.Popen(
-        ['cat', '-v'], stdin=hadoop_proc.stdout
-    )
+#    system.exit(0)
 
-    system.exit(0)
-  
     # Ingest into postgres
     postgres_proc = subprocess.Popen(
-        ['psql', '-c', 'COPY table_name from stdin'],
+        ['psql', '-h',  'climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com', '-U', 'capppuser', '-d', 'CAPPPDotGovClimateChange','-c', "COPY unique_captures21oct (src, surt, checksum, date, code, title, description, content) FROM stdin WITH DELIMITER E'\1' NULL '';"],
         stdin=hadoop_proc.stdout)
 
     postgres_proc.wait()
