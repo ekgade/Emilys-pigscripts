@@ -2,12 +2,12 @@
 
 ## to remotely log in to postgres table:
 psql -h climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com -U capppuser -d CAPPPDotGovClimateChange
-
+## password is cappuser
 # to create a new table
 CREATE TABLE unique_captures21Oct (
-src         text,
-surt        text,
-checksum    text,
+src         text NOT NULL,
+surt        text NOT NULL,
+checksum    text NOT NULL,
 date        date,
 code        text,
 title       text,
@@ -80,6 +80,8 @@ description text,
 content
 
 \COPY unique_captures21oct (src, surt, checksum, date, code, title, description, content) FROM 'Desktop/CAPP_RAship/part-m-00000' (DELIMITER '\u0001');
+
+\COPY unique_captures21oct (src, surt, checksum, date, code, title, description, content) FROM 'Desktop/CAPP_RAship/part-m-00000' WITH DELIMITER E'\1' NULL '';
 
 
 COPY tablename [ ( column [, ...] ) ]
