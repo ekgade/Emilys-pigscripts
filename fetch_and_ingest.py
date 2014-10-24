@@ -3,6 +3,7 @@
 ## to run, go to command line with the right directory where you stored the file, then type: ./fetch_and_ingest.py
 
 import os
+import codecs
 import subprocess
 import sys
 
@@ -11,9 +12,8 @@ HOST = 'altiscale'
 ## this may not be necessary
 HDFS_ROOT = ''
 
-PSQL_HOST = 'psql -h climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com -U capppuser -d CAPPPDotGovClimateChange'
-
-pswd = 'cappuser'
+##PSQL_HOST = 'psql -h climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com -U capppuser -d CAPPPDotGovClimateChange'
+##pswd = 'cappuser'
 
 def execute_remote(cmd):
     return subprocess.check_output(['ssh', HOST, cmd])
@@ -28,7 +28,7 @@ def fetch_file_list(root):
             yield toks[7]
 
 # Step 1: Fetch list of files
-files = list(fetch_file_list(HDFS_ROOT + 'ClimateuniqueArc0'))
+files = list(fetch_file_list(HDFS_ROOT + 'ClimateuniqueArc0TEST2/part-m-00038'))
 #base name is the last part of the file name (not all the directories the file is stored in)
 files = [f for f in files if not os.path.basename(f).startswith('_')]
 print files
@@ -43,10 +43,34 @@ for phile in files:
         # load file contents en masse
         contents = subprocess.check_output(
             ['ssh', HOST, 'hadoop fs -cat ' + HDFS_ROOT + phile])
+        contents = contents.replace('\\', '\\\\')
+        contents = contents.replace('\r', ' ')
+
+
+        #
+        lines=contents.split('\n')
+        for line_no, line in enumerate(lines):
+          ## find returns negative one if it didnt find anything
+            toks = line.split(chr(1))
+            if len(toks) != 8:
+                print 'woah, missing or extra column!' + str(len(toks))
+                print line
+                print line_no
+                print len(line)
+                sys.exit(0)
+        #     try:
+        #         line = codecs.decode(line, 'UTF-8')
+        #
+        #     except:
+        #         print 'line parsing failed!'
+        #         print line
 
         # Ingest into postgres
         postgres_proc = subprocess.Popen(
-            ['psql', '-h',  'climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com', '-U', 'capppuser', '-d', 'CAPPPDotGovClimateChange','-c', "COPY unique_captures21oct (src, surt, checksum, date, code, title, description, content) FROM stdin WITH DELIMITER E'\1' NULL '';"],
+            ['psql', '-h',  'climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com', '-U',
+            'capppuser', '-d', 'CAPPPDotGovClimateChange','-c',
+            "COPY unique_captures21oct (src, surt, checksum, date, code, title, description, content) FROM stdin WITH DELIMITER E'\1' ENCODING 'UTF8';"],
+#            "COPY unique_captures21oct (src, surt, checksum, date, code, title, description, content) FROM stdin WITH csv DELIMITER E'\1' QUOTE E'\2' ESCAPE E'\2' ENCODING 'UTF8';"],
             stdin=subprocess.PIPE)
 
         postgres_proc.communicate(input=contents)
@@ -63,5 +87,3 @@ for phile in files:
 
     except Exception as e:
         print '### Exception on file %s : %s' % (phile, e)
-
-
