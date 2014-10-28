@@ -28,7 +28,7 @@ def fetch_file_list(root):
             yield toks[7]
 
 # Step 1: Fetch list of files
-files = list(fetch_file_list(HDFS_ROOT + 'ClimateuniqueArc0TEST2/part-m-00038'))
+files = list(fetch_file_list(HDFS_ROOT + 'ClimateuniqueArc3'))
 #base name is the last part of the file name (not all the directories the file is stored in)
 files = [f for f in files if not os.path.basename(f).startswith('_')]
 print files
@@ -49,15 +49,15 @@ for phile in files:
 
         #
         lines=contents.split('\n')
-        for line_no, line in enumerate(lines):
+        #for line_no, line in enumerate(lines):
           ## find returns negative one if it didnt find anything
-            toks = line.split(chr(1))
-            if len(toks) != 8:
-                print 'woah, missing or extra column!' + str(len(toks))
-                print line
-                print line_no
-                print len(line)
-                sys.exit(0)
+        #    toks = line.split(chr(1))
+        #    if len(toks) != 8:
+        #        print 'woah, missing or extra column!' + str(len(toks))
+        #        print line
+        #        print line_no
+        #        print len(line)
+                #sys.exit(0)
         #     try:
         #         line = codecs.decode(line, 'UTF-8')
         #

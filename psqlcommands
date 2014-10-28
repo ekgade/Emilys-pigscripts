@@ -83,6 +83,9 @@ content
 
 \COPY unique_captures21oct (src, surt, checksum, date, code, title, description, content) FROM 'Desktop/CAPP_RAship/part-m-00000' WITH DELIMITER E'\1' NULL '';
 
+\COPY unique_captures21oct (src, surt, checksum, date, code, title, description, content) FROM '/Desktop/CAPP_RAship/part-m-00000' WITH DELIMITER E'\1' NULL '';
+
+
 
 COPY tablename [ ( column [, ...] ) ]
     FROM { 'filename' | STDIN }
