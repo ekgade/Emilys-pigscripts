@@ -1,3 +1,8 @@
+
+ssh ing into the EC2 instance that provides the front end for the climate change scripts
+ssh -i ~/.ssh/ekgade.pem ec2-user@ec2-54-191-252-2.us-west-2.compute.amazonaws.com
+
+
 -- postgress commands!
 
 ## to remotely log in to postgres table:

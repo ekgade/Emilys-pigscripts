@@ -34,10 +34,11 @@ Meta = FILTER Meta BY m#'errorMessage' is null;
 -- Only retain the fields of interest.
 Meta = FOREACH Meta GENERATE m#'url'           AS src:chararray,
 			     m#'date'          AS timestamp:chararray,
-			     m#'code'          AS code:chararray,
-			     m#'title'         AS title:chararray,
-			     m#'description'   AS description:chararray,
-			     m#'content'      AS content:chararray;
+					 SUBSTRING(m#'date', 0, 8) AS date:chararray,
+					 REPLACE(m#'code', '[^\\p{Graph}]', ' ')          AS code:chararray,
+					 REPLACE(m#'title', '[^\\p{Graph}]', ' ')         AS title:chararray,
+				   REPLACE(m#'description', '[^\\p{Graph}]', ' ')   AS description:chararray,
+					 REPLACE(m#'content', '[^\\p{Graph}]', ' ')       AS content:chararray;
 
 -- get meta text only from HTTP 200 response pages
 Meta = FILTER Meta BY code == '200';
@@ -67,4 +68,4 @@ Docs = FOREACH Meta GENERATE src as src, timestamp as timestamp, FLATTEN(TOKENIZ
 
 DocWordTotals = FOREACH (GROUP Docs by (src)) GENERATE group as src, date as date, COUNT(term) as docTotal;
 
-Store DocWordTotals into '$O_METATEXT_DATA_DIR';
+Store DocWordTotals into '$O_DATA_DIR' USING PigStorage('\u0001');

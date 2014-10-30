@@ -1,3 +1,5 @@
+
+
 #!/usr/bin/env python
 
 ## to run, go to command line with the right directory where you stored the file, then type: ./fetch_and_ingest.py
@@ -28,7 +30,7 @@ def fetch_file_list(root):
             yield toks[7]
 
 # Step 1: Fetch list of files
-files = list(fetch_file_list(HDFS_ROOT + 'ClimateuniqueArc4'))
+files = list(fetch_file_list(HDFS_ROOT + 'ClimatetotalobsArc0'))
 #base name is the last part of the file name (not all the directories the file is stored in)
 files = [f for f in files if not os.path.basename(f).startswith('_')]
 print files

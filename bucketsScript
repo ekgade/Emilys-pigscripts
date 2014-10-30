@@ -93,3 +93,10 @@ climate_totalobs.pig
 to sign in to amazon instance using postgresql
 (have to downloand and install postgres first - download homebrew if on mac. then type in command line: "brew install postgres")
 psql -h climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com -U capppuser -d CAPPPDotGovClimateChange
+
+
+
+docwordcounts.pig
+
+
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-0/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_METATEXT_DATA_DIR=docwordcountsArc0  docwordcounts.pig
