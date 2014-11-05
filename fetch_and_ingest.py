@@ -4,8 +4,11 @@
 
 import os
 import codecs
+import logging
 import subprocess
 import sys
+
+logging.basicConfig(format='%(asctime)s %(message)s', filename='ingest.log', level=logging.DEBUG)
 
 ## machine you are SSH into
 HOST = 'altiscale'
@@ -28,7 +31,7 @@ def fetch_file_list(root):
             yield toks[7]
 
 # Step 1: Fetch list of files
-files = list(fetch_file_list(HDFS_ROOT + 'ClimateuniqueArc4'))
+files = list(fetch_file_list(HDFS_ROOT + 'ClimateuniqueArc0/part-m-00001'))
 #base name is the last part of the file name (not all the directories the file is stored in)
 files = [f for f in files if not os.path.basename(f).startswith('_')]
 print files
@@ -47,12 +50,19 @@ for phile in files:
         contents = contents.replace('\r', ' ')
 
 
-        #
-        lines=contents.split('\n')
-        #for line_no, line in enumerate(lines):
+        lines = contents.split('\n')
+        new_lines = []
+        for line_no, line in enumerate(lines):
           ## find returns negative one if it didnt find anything
-        #    toks = line.split(chr(1))
-        #    if len(toks) != 8:
+            toks = line.split(chr(1))
+            if toks[0].endswith('.mht'):
+                logging.info("Skipping mht file: " + toks[0])
+                continue
+            new_lines.append(line)
+
+        contents = '\n'.join(new_lines)
+
+            #if len(toks) != 8:
         #        print 'woah, missing or extra column!' + str(len(toks))
         #        print line
         #        print line_no
@@ -69,7 +79,7 @@ for phile in files:
         postgres_proc = subprocess.Popen(
             ['psql', '-h',  'climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com', '-U',
             'capppuser', '-d', 'CAPPPDotGovClimateChange','-c',
-            "COPY unique_captures21oct (src, surt, checksum, date, code, title, description, content) FROM stdin WITH DELIMITER E'\1' ENCODING 'UTF8';"],
+            "COPY unique_TEST4Nov (src, surt, checksum, date, code, title, description, content) FROM stdin WITH DELIMITER E'\1' ENCODING 'UTF8';"],
 #            "COPY unique_captures21oct (src, surt, checksum, date, code, title, description, content) FROM stdin WITH csv DELIMITER E'\1' QUOTE E'\2' ESCAPE E'\2' ENCODING 'UTF8';"],
             stdin=subprocess.PIPE)
 

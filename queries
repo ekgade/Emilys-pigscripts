@@ -1,0 +1,85 @@
+psql queires
+
+INDEX COMMAND
+
+As superuser:
+
+sudo CREATE EXTENSION pg_trgm;
+
+
+then:
+
+regress=> CREATE INDEX words_trgm_gin ON words USING GIN(word gin_trgm_ops);
+
+
+
+
+Create view in the database
+
+--> cash a given query -->
+
+
+
+*** figureing out whats wrong with the data
+
+psql -h climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com -U capppuser -d CAPPPDotGovClimateChange -c "select substring(content, 1, 80), length(content), src from unique_capturesTEST4nov where length(content) > 900000;"
+
+psql -h climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com -U capppuser -d CAPPPDotGovClimateChange -c "select substring(content, 1, 80), length(content), src from unique_capturesTEST4nov order by length(content) desc limit 200;"
+
+psql -h climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com -U capppuser -d CAPPPDotGovClimateChange -c "select substring(content, 1, 80), length(content), src from unique_capturesTEST4nov order by length(content) desc limit 200;"
+
+psql -h climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com -U capppuser -d CAPPPDotGovClimateChange -c "select sum(length(content)) from unique_TEST4nov where src LIKE '%.mht';"
+
+
+
+What are all the sites the mention global warming (give me the first fifty)?
+
+ SELECT * FROM unique_capturesTEST4nov WHERE content ~ '.*global\\swarm.*' LIMIT 50;
+
+
+ SELECT * FROM unique_capturesTEST4nov WHERE content ~ '.*global\\swarm.*' LIMIT 10;
+
+
+
+Which was the first site to mention any type of climate change related word?
+
+SELECT src FROM unique_capturesTEST4nov ORDER BY date LIMIT 50;
+
+
+
+Which was the first to mention each specific term?
+
+SELECT src FROM unique_capturesTEST4nov WHERE content ~ '.*global\\swarm.*' ORDER BY date LIMIT 50;
+
+
+
+COUNT (*) FROM unique_capturesTEST4nov WHERE content ~ '.*global\\swarm.*'
+
+
+Create TABLE where aggregate counts by URL root for each of these domain roots:
+
+
+CREATING VIEWS _ associating a name with a query 
+SELECT src FROM unique_capturesTEST4nov WHERE src ~
+
+   'state\.gov',
+   'treasury\.gov',
+   'defense\.gov',
+   'dod\.gov',
+   'usdoj\.gov',
+   'doi\.gov',
+   'usda\.gov',
+   'commerce\.gov',
+   'dol\.gov',
+   'hhs\.gov',
+   'dot\.gov',
+   'energy\.gov',
+   'ed\.gov',
+   'va\.gov',
+   'dhs\.gov',
+   'whitehouse\.gov',
+   '\.senate\.gov',
+   '\.house\.gov'
+
+
+ALTER TABLE unique_capturesTEST4nov ADD COLUMN url_root text;

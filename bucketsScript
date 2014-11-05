@@ -99,4 +99,12 @@ psql -h climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com -U capp
 docwordcounts.pig
 
 
-pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-0/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_METATEXT_DATA_DIR=docwordcountsArc0  docwordcounts.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-0/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=docwordcountsArc0  docwordcounts_30Oct.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-1/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=docwordcountsArc1  docwordcounts_30Oct.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-2/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=docwordcountsArc2  docwordcounts_30Oct.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-3/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=docwordcountsArc3  docwordcounts_30Oct.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-4/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=docwordcountsArc4  docwordcounts_30Oct.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/arcs/bucket-5/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=docwordcountsArc5  docwordcounts_30Oct.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/warcs/bucket-0/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=docwordcountsWarc0  docwordcounts_30Oct.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/warcs/bucket-1/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=docwordcountsWarc1  docwordcounts_30Oct.pig
+pig -p I_PARSED_DATA=/dataset-derived/gov/parsed/warcs/bucket-2/ -p I_CHECKSUM_DATA=/dataset/gov/url-ts-checksum/ -p O_DATA_DIR=docwordcountsWarc2  docwordcounts_30Oct.pig
