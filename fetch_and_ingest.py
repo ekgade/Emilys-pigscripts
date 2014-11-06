@@ -31,7 +31,7 @@ def fetch_file_list(root):
             yield toks[7]
 
 # Step 1: Fetch list of files
-files = list(fetch_file_list(HDFS_ROOT + 'ClimateuniqueArc0/part-m-00001'))
+files = list(fetch_file_list(HDFS_ROOT + 'Climateunique*'))
 #base name is the last part of the file name (not all the directories the file is stored in)
 files = [f for f in files if not os.path.basename(f).startswith('_')]
 print files
@@ -79,7 +79,7 @@ for phile in files:
         postgres_proc = subprocess.Popen(
             ['psql', '-h',  'climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com', '-U',
             'capppuser', '-d', 'CAPPPDotGovClimateChange','-c',
-            "COPY unique_TEST4Nov (src, surt, checksum, date, code, title, description, content) FROM stdin WITH DELIMITER E'\1' ENCODING 'UTF8';"],
+            "COPY unique_4Nov (src, surt, checksum, date, code, title, description, content) FROM stdin WITH DELIMITER E'\1' ENCODING 'UTF8';"],
 #            "COPY unique_captures21oct (src, surt, checksum, date, code, title, description, content) FROM stdin WITH csv DELIMITER E'\1' QUOTE E'\2' ESCAPE E'\2' ENCODING 'UTF8';"],
             stdin=subprocess.PIPE)
 

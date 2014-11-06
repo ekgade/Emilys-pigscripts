@@ -1,0 +1,175 @@
+List of things to run on dataset once its up:
+
+create index
+
+
+
+
+
+Create Views
+
+
+
+CREATE VIEW natural_disaster AS
+SELECT *
+FROM unique_4nov
+WHERE content ~ '.*natural\sdisaster.*';
+
+CREATE VIEW global_warming AS
+SELECT *
+FROM unique_4nov
+WHERE content ~ '.*global\swarm.*';
+
+CREATE VIEW fresh_water AS
+SELECT *
+FROM unique_4nov
+WHERE content ~ '.*fresh\swater.*';
+
+CREATE VIEW forest_conservation AS
+SELECT *
+FROM unique_4nov
+WHERE content ~ '.*forest\sconservation.*';
+
+CREATE VIEW food_security AS
+SELECT *
+FROM unique_4nov
+WHERE content ~ '.*food\ssecurity.*' OR WHERE content ~ '.*security\sof\sfood.*';
+
+CREATE VIEW desertification AS
+SELECT *
+FROM unique_4nov
+WHERE content ~ '.*desertification.*';
+
+CREATE VIEW IPCC AS
+SELECT *
+FROM unique_4nov
+WHERE content ~ '.*intergovernmental\spanel\son\sclimate\schange.*';
+
+CREATE VIEW CRU AS
+SELECT *
+FROM unique_4nov
+WHERE content ~ '.*climatic\sresearch\sunit.*';
+
+CREATE VIEW ClimateGate AS
+SELECT *
+FROM unique_4nov
+WHERE content ~ '.*climategate.*';
+
+CREATE VIEW GreenHouseGas AS
+SELECT *
+FROM unique_4nov
+WHERE content ~ '.*greenhouse\sgas.*;
+
+CREATE VIEW anthropogenic AS
+SELECT *
+FROM unique_4nov
+WHERE content ~ '.*anthropogenic.*';
+
+CREATE VIEW anthropocene AS
+SELECT *
+FROM unique_4nov
+WHERE content ~ '.*anthropocene.*';
+
+CREATE VIEW ClimateChange AS
+SELECT *
+FROM unique_4nov
+WHERE content ~ '.*climate\schange.*';
+
+CREATE VIEW pollution AS
+SELECT *
+FROM unique_4nov
+WHERE content ~ '.*pollution.*';
+
+CREATE VIEW ocean_acidification AS
+SELECT *
+FROM unique_4nov
+WHERE content ~ '.*ocean\sacidification.*';
+
+#################################
+
+
+
+CREATE VIEW DeptOfState AS
+SELECT *
+FROM unique_4nov
+WHERE src ~ '.*state\.gov.*';
+
+CREATE VIEW DeptOfTreasury AS
+SELECT *
+FROM unique_4nov
+WHERE src ~ '.*treasury\.gov.*';
+
+CREATE VIEW DeptOfDefense AS
+SELECT *
+FROM unique_4nov
+WHERE src ~ '.*defense\.gov.*' OR WHERE src ~ '.*dod\.gov.*';
+
+CREATE VIEW DeptOfJustice AS
+SELECT *
+FROM unique_4nov
+WHERE src ~ '.*usdoj\.gov.*';
+
+CREATE VIEW DeptOfInterior AS
+SELECT *
+FROM unique_4nov
+WHERE src ~ '.*doi\.gov.*';
+
+CREATE VIEW FoodAndDrugAdmin AS
+SELECT *
+FROM unique_4nov
+WHERE src ~ '.*usda\.gov.*';
+
+CREATE VIEW DeptOfCommerce AS
+SELECT *
+FROM unique_4nov
+WHERE src ~ '.*commerce\.gov.*';
+
+CREATE VIEW DeptOfLabor AS
+SELECT *
+FROM unique_4nov
+WHERE src ~ '.*dol\.gov.*';
+
+CREATE VIEW DeptOfHealthAndHumanServ AS
+SELECT *
+FROM unique_4nov
+WHERE src ~ '.*hhs\.gov.*';
+
+CREATE VIEW DeptOfTransport AS
+SELECT *
+FROM unique_4nov
+WHERE src ~ '.*dot\.gov.*';
+
+CREATE VIEW DeptOfEnergy AS
+SELECT *
+FROM unique_4nov
+WHERE src ~ '.*energy\.gov.*';
+
+CREATE VIEW DeptOfEdu AS
+SELECT *
+FROM unique_4nov
+WHERE src ~ '.*ed\.gov.*';
+
+CREATE VIEW VeteranAdmin AS
+SELECT *
+FROM unique_4nov
+WHERE src ~ '.*va\.gov.*';
+
+CREATE VIEW DeptOfHomelandSec AS
+SELECT *
+FROM unique_4nov
+WHERE src ~ '.*dhs\.gov.*';
+
+CREATE VIEW WhiteHouse AS
+SELECT *
+FROM unique_4nov
+WHERE src ~ '.*whitehouse\.gov.*';
+
+CREATE VIEW USHouse AS
+SELECT *
+FROM unique_4nov
+WHERE src ~ '.*\.house\.gov.*';
+
+CREATE VIEW USSenate AS
+SELECT *
+FROM unique_4nov
+WHERE src ~ '.*\.senate\.gov.gov.*';

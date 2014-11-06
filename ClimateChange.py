@@ -13,10 +13,7 @@ def ClimateChangeWords(content):
         '(food\ssecurity)',
         '(security\sof\sfood)',
         'desertification',
-        'IPCC',
         '(intergovernmental\spanel\son\sclimate\schange)',
-        ## remember when you cacluate totals to subtract this from climate change totals or you will count it twice!
-        'CRU',
         '(climatic\sresearch\sunit)',
         'climategate',
         '(greenhouse\sgas)',
