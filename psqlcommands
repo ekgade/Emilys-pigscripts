@@ -9,7 +9,7 @@ ssh -i ~/.ssh/ekgade.pem ec2-user@ec2-54-191-252-2.us-west-2.compute.amazonaws.c
 psql -h climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com -U capppuser -d CAPPPDotGovClimateChange
 ## password is cappuser
 # to create a new table
-CREATE TABLE unique_TEST4Nov (
+CREATE TABLE unique_4Nov (
 src         text NOT NULL,
 surt        text NOT NULL,
 checksum    text NOT NULL,

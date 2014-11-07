@@ -34,10 +34,9 @@ psql -h climatechangedotgovdata.cmu4mm2fobzj.us-west-2.rds.amazonaws.com -U capp
 
 What are all the sites the mention global warming (give me the first fifty)?
 
- SELECT * FROM unique_capturesTEST4nov WHERE content ~ '.*global\\swarm.*' LIMIT 50;
+ SELECT * FROM unique_capturesTEST4nov WHERE content ~ '.*global\swarm.*' LIMIT 50;
 
-
- SELECT * FROM unique_capturesTEST4nov WHERE content ~ '.*global\\swarm.*' LIMIT 10;
+ SELECT * FROM unique_capturesTEST4nov WHERE content ~ '.*global\swarm.*' LIMIT 10;
 
 
 
@@ -49,37 +48,21 @@ SELECT src FROM unique_capturesTEST4nov ORDER BY date LIMIT 50;
 
 Which was the first to mention each specific term?
 
-SELECT src FROM unique_capturesTEST4nov WHERE content ~ '.*global\\swarm.*' ORDER BY date LIMIT 50;
+SELECT src FROM unique_capturesTEST4nov WHERE content ~ '.*global\swarm.*' ORDER BY date LIMIT 50;
+
+CREATE VIEW natural_disaster AS
+SELECT *
+FROM unique_capturesTEST4nov
+WHERE content ~ '.*natural\sdisaster.*';
+
+
+How many sites mention this term (USE VIEWS)?
+
+COUNT (*) FROM global_warming;
+
+How many words were mentioned on a given cite?
 
 
 
-COUNT (*) FROM unique_capturesTEST4nov WHERE content ~ '.*global\\swarm.*'
 
-
-Create TABLE where aggregate counts by URL root for each of these domain roots:
-
-
-CREATING VIEWS _ associating a name with a query 
-SELECT src FROM unique_capturesTEST4nov WHERE src ~
-
-   'state\.gov',
-   'treasury\.gov',
-   'defense\.gov',
-   'dod\.gov',
-   'usdoj\.gov',
-   'doi\.gov',
-   'usda\.gov',
-   'commerce\.gov',
-   'dol\.gov',
-   'hhs\.gov',
-   'dot\.gov',
-   'energy\.gov',
-   'ed\.gov',
-   'va\.gov',
-   'dhs\.gov',
-   'whitehouse\.gov',
-   '\.senate\.gov',
-   '\.house\.gov'
-
-
-ALTER TABLE unique_capturesTEST4nov ADD COLUMN url_root text;
+Create View where aggregate counts by URL root for each of these domain roots:
