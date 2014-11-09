@@ -42,18 +42,18 @@ def main(datafile, graphTitle, imagefile):
                     #        'ksts'
 #                            ],
                     'group2': [
-                            '(forest\sconservation)',
-                            '(global\swarming)',
-                            'desertification',
+                        #    '(forest\sconservation)',
+                        #    '(global\swarming)',
+                        #    'desertification',
                             '(climate\schange)'
-                            ] #,
+                            ] ,
                             #'group3': [
                             #'cyberwar',
                             #'cyberterror',
                             #'cybersecurit',
                             #'(cyber\s?attack)'
                             #],
-                    #'group4': [
+                    'group4': ['(global\swarming)'],
                         # '(chemical\,?\sbiological\,?\so?r?\s?a?n?d?\s?nuclear\s?w?e?a?p?o?n?)',
                     #         '(chemical\sweapon)',
                              #'proliferat',
@@ -75,10 +75,8 @@ def main(datafile, graphTitle, imagefile):
                             # '(human\srights\sabuse)',
                             #'(violat[a-z]+?\s?o?f?\su?n?i?v?e?r?s?a?l?\s?human\sright)'
                             # ], #,
-                                   #'group7': [
-                            # '(food\ssecurity)',
-                            # '(security\sof\sfood)'
-                            #],
+                    'group7': ['(greenhouse\sgas)'
+                            ],
                             # 'group8':[
                             # '(north\skorea)'
                             # ]
@@ -91,7 +89,7 @@ def main(datafile, graphTitle, imagefile):
                     #         '(bankrupt*)',
                     #         '(toxic\sasset*)'
                     #         ],
-                    # 'group8':[
+                     'group8':['(natural\sdisaster)']
                     #         '(housing\scrisis*)',
                     #         '(subprime\smortgage*)',
                     #         '(mortgage*)',
@@ -100,40 +98,40 @@ def main(datafile, graphTitle, imagefile):
 
                   }
     groupLabels = {#'group1':'Terrorism',
-                   'group2':'Environmental Degradation'#,
+                   'group2':'Climate Change',
                    #'group3':'Cyber Security',
-                   #'group4':'Weapons of Mass Destruction'#,
+                   'group4':'Global Warming',
                    #'group5':'Transnational Crime',
                    #'group6':'Human Rights Violations',
                    #'group8':'North Korea',
-                   #'group7':'Food Security'
+                   'group7':'Greenhouse Gas',
 #                   'group7': 'Banking Crisis',
-#                   'group8': 'Mortgage Crisis'
+                   'group8': 'ClimateGate'
 
                  }
 
     URLLabels = ['other'
-                #'state\.gov'
+                #'state\.gov',
                  #,
-                 #'treasury\.gov',
-                 #'defense\.gov',
-                 #'dod\.gov',
+                 #'treasury\.gov'#,
+                 #'defense\.gov'#,
+                 #'dod\.gov'#,
                  #'usdoj\.gov',
                  #'doi\.gov',
-                 #'usda\.gov',
+                 #'usda\.gov'#,
                  #'commerce\.gov',
                  #'dol\.gov',
-                 #'hhs\.gov',
+                 #'hhs\.gov'
                  #'dot\.gov',
-                 #'energy\.gov',
+                 #'energy\.gov'#,
                  #'ed\.gov',
                  #'va\.gov',
-                 #'dhs\.gov',
-                 #'whitehouse\.gov',
-                 #'\.senate\.gov',
+                 #'dhs\.gov'#,
+                 #'whitehouse\.gov'
+                 #'\.senate\.gov'#,
                  #test with this one
                  #'nh\.gov',
-                 #'\.house\.gov','other'
+                # '\.house\.gov'#,'other'
                  ]
 
     groupFrequencies = defaultdict(list)
@@ -158,7 +156,7 @@ def main(datafile, graphTitle, imagefile):
 
             #frequency.append(counts[wordToGraph][(y,m)] / counts['total'][(y,m)])
             dates.append(datetime(y,m,1))
-            print dates
+        #    print dates
     plt.clf()
 
     # Color progression to use
@@ -168,7 +166,7 @@ def main(datafile, graphTitle, imagefile):
         for group in groupWords.keys():
             plt.plot_date( dates, groupFrequencies[group], '-', label=groupLabels[group])
 
-    print dates
+    #print dates
 
 
     plt.xlabel('Date')
